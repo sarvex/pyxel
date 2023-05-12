@@ -248,13 +248,11 @@ class CanvasPanel(Widget):
                 if self._is_assist_mode:
                     self._reset_edit_canvas()
                     self._edit_canvas.line(x1, y1, x2, y2, self.color_var)
-                    self._finish_edit_canvas()
                 else:
                     self._edit_canvas.line(
                         self._last_x, self._last_y, x2, y2, self.color_var
                     )
-                    self._finish_edit_canvas()
-
+                self._finish_edit_canvas()
             elif self.tool_var == TOOL_RECTB:
                 self._reset_edit_canvas()
                 self._edit_canvas.rectb2(
@@ -312,7 +310,7 @@ class CanvasPanel(Widget):
         x, y = self._screen_to_focus(x, y)
         x += self.focus_x_var * 8
         y += self.focus_y_var * 8
-        self.help_message_var = s + f" ({x},{y})"
+        self.help_message_var = f"{s} ({x},{y})"
 
     def __on_update(self):
         if self._is_dragged and not self._is_assist_mode and pyxel.btn(pyxel.KEY_SHIFT):
@@ -433,7 +431,6 @@ class CanvasPanel(Widget):
                 128,
                 128,
             )
-            pyxel.pal2()
         else:
             pyxel.pal()
             for yi in range(16):
@@ -445,7 +442,7 @@ class CanvasPanel(Widget):
                         8,
                         canvas.pget(offset_x + xi, offset_y + yi),
                     )
-            pyxel.pal2()
+        pyxel.pal2()
         pyxel.line(
             self.x + 1, self.y + 64, self.x + 128, self.y + 64, WIDGET_PANEL_COLOR
         )

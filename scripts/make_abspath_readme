@@ -10,7 +10,7 @@ ABSPATH_README = "docs/README-abspath.md"
 
 def make_abspath_readme():
     os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), ROOT_DIR))
-    relpath_dir = os.path.dirname(RELPATH_README) + "/"
+    relpath_dir = f"{os.path.dirname(RELPATH_README)}/"
     with open(RELPATH_README, "r", encoding="utf-8") as fh:
         text = fh.read()
         text = re.sub(

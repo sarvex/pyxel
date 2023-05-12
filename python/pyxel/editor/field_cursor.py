@@ -87,13 +87,11 @@ class FieldCursor:
             self._cursor_y = y
             self._select_x = None
         elif with_select_key:
-            if self.is_selecting:
-                self._cursor_x = max(min(x, self._max_select_x), 0)
-            else:
+            if not self.is_selecting:
                 self._select_x = max(
                     min(self._adjusted_cursor_x, self._max_select_x), 0
                 )
-                self._cursor_x = max(min(x, self._max_select_x), 0)
+            self._cursor_x = max(min(x, self._max_select_x), 0)
         else:
             self._cursor_x = max(min(x, self._max_cursor_x), 0)
             self._select_x = None

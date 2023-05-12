@@ -164,13 +164,13 @@ class PianoKeyboard(Widget):
         y = self.y + (59 - note) * 2
         if note == -1:
             pyxel.rect(x, y + 1, 12, 2, PIANO_KEYBOARD_REST_COLOR)
-        elif key == 0 or key == 5:
+        elif key in [0, 5]:
             pyxel.rect(x, y + 1, 7, 1, PIANO_KEYBOARD_PLAY_COLOR)
             pyxel.rect(x + 7, y, 5, 2, PIANO_KEYBOARD_PLAY_COLOR)
-        elif key == 4 or key == 11:
+        elif key in [4, 11]:
             pyxel.rect(x, y + 1, 7, 1, PIANO_KEYBOARD_PLAY_COLOR)
             pyxel.rect(x + 7, y + 1, 5, 2, PIANO_KEYBOARD_PLAY_COLOR)
-        elif key == 2 or key == 7 or key == 9:
+        elif key in [2, 7, 9]:
             pyxel.rect(x, y + 1, 7, 1, PIANO_KEYBOARD_PLAY_COLOR)
             pyxel.rect(x + 7, y, 5, 3, PIANO_KEYBOARD_PLAY_COLOR)
         else:

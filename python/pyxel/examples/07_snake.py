@@ -179,10 +179,7 @@ class Snake:
         """Draw the snake with a distinct head by iterating through deque."""
 
         for i, point in enumerate(self.snake):
-            if i == 0:
-                colour = COL_HEAD
-            else:
-                colour = COL_BODY
+            colour = COL_HEAD if i == 0 else COL_BODY
             pyxel.pset(point.x, point.y, col=colour)
 
     def draw_score(self):

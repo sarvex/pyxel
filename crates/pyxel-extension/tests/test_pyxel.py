@@ -32,7 +32,7 @@ class TestPyxel(unittest.TestCase):
         self.assertEqual(pyxel.colors.to_list(), default_colors)
 
         modified_colors = default_colors[:]
-        modified_colors[0:4] = [0x111111, 0x222222, 0x333333, 0x444444]
+        modified_colors[:4] = [0x111111, 0x222222, 0x333333, 0x444444]
         pyxel.colors.from_list([0x111111, 0x222222, 0x333333, 0x444444])
         self.assertEqual(pyxel.colors.to_list(), modified_colors)
 

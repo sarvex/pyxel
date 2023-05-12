@@ -54,14 +54,14 @@ def cleanup_list(list):
 class Background:
     def __init__(self):
         self.stars = []
-        for i in range(NUM_STARS):
-            self.stars.append(
-                (
-                    pyxel.rndi(0, pyxel.width - 1),
-                    pyxel.rndi(0, pyxel.height - 1),
-                    pyxel.rndf(1, 2.5),
-                )
+        self.stars.extend(
+            (
+                pyxel.rndi(0, pyxel.width - 1),
+                pyxel.rndi(0, pyxel.height - 1),
+                pyxel.rndf(1, 2.5),
             )
+            for _ in range(NUM_STARS)
+        )
 
     def update(self):
         for i, (x, y, speed) in enumerate(self.stars):
@@ -118,7 +118,7 @@ class Bullet:
 
     def update(self):
         self.y -= BULLET_SPEED
-        if self.y + self.h - 1 < 0:
+        if self.y + self.h < 1:
             self.is_alive = False
 
     def draw(self):

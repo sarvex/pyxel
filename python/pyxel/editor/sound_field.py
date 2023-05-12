@@ -103,8 +103,7 @@ class SoundField(Widget):
         )
 
         # Draw field data
-        data_str = []
-        data_str.append("".join(["TSPN"[v] for v in self.get_field(1)]))
+        data_str = ["".join(["TSPN"[v] for v in self.get_field(1)])]
         data_str.append("".join([str(v) for v in self.get_field(2)]))
         data_str.append("".join(["NSVF"[v] for v in self.get_field(3)]))
         for i in range(3):

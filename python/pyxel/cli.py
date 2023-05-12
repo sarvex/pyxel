@@ -70,7 +70,7 @@ def _check_newer_version():
             text = res.read().decode("utf-8")
             result = re.search(pattern, text)
             if result:
-                latest_version = result.group(1)
+                latest_version = result[1]
     except urllib.error.URLError:
         return
     if not latest_version:
@@ -85,10 +85,7 @@ def _check_newer_version():
 
 def _complete_extension(filename, ext_with_dot):
     file_ext = os.path.splitext(filename)[1]
-    if file_ext == ext_with_dot:
-        return filename
-    else:
-        return filename + ext_with_dot
+    return filename if file_ext == ext_with_dot else filename + ext_with_dot
 
 
 def _files_in_dir(dirname):
@@ -144,10 +141,7 @@ def _timestamps_in_dir(dirname):
     paths += glob.glob(os.path.join(dirname, "*/*"))
     paths += glob.glob(os.path.join(dirname, "*/*/*"))
     files = filter(os.path.isfile, paths)
-    timestamps = {}
-    for file in files:
-        timestamps[file] = os.path.getmtime(file)
-    return timestamps
+    return {file: os.path.getmtime(file) for file in files}
 
 
 def _run_python_script_in_separate_process(python_script_file):
@@ -255,7 +249,7 @@ def create_executable_from_pyxel_app(pyxel_app_file):
         shutil.rmtree(app2exe_dir)
     pathlib.Path(app2exe_dir).mkdir(parents=True, exist_ok=True)
     pyxel_app_name = os.path.splitext(os.path.basename(pyxel_app_file))[0]
-    startup_script_file = os.path.join(app2exe_dir, pyxel_app_name + ".py")
+    startup_script_file = os.path.join(app2exe_dir, f"{pyxel_app_name}.py")
     with open(startup_script_file, "w") as f:
         f.write(
             "import os, pyxel.cli; pyxel.cli.play_pyxel_app("
@@ -272,7 +266,7 @@ def create_executable_from_pyxel_app(pyxel_app_file):
     )
     if os.path.isdir(app2exe_dir):
         shutil.rmtree(app2exe_dir)
-    spec_file = os.path.splitext(pyxel_app_file)[0] + ".spec"
+    spec_file = f"{os.path.splitext(pyxel_app_file)[0]}.spec"
     if os.path.isfile(spec_file):
         os.remove(spec_file)
 
@@ -284,7 +278,7 @@ def create_html_from_pyxel_app(pyxel_app_file):
     with open(pyxel_app_file, "rb") as f:
         base64_string = base64.b64encode(f.read()).decode()
     pyxel_app_name = os.path.splitext(os.path.basename(pyxel_app_file))[0]
-    with open(pyxel_app_name + ".html", "w") as f:
+    with open(f"{pyxel_app_name}.html", "w") as f:
         f.write(
             "<!DOCTYPE html>\n"
             '<script src="https://cdn.jsdelivr.net/gh/kitao/pyxel/wasm/pyxel.js">'

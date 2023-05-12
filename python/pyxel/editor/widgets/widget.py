@@ -112,8 +112,7 @@ class Widget:
             listener(*args)
 
     def update_all(self):
-        capture_widget = Widget._mouse_capture_info.widget
-        if capture_widget:
+        if capture_widget := Widget._mouse_capture_info.widget:
             capture_widget._process_capture()
         else:
             self._process_input()
@@ -257,7 +256,7 @@ class Widget:
 
     @staticmethod
     def _widget_var_name(name):
-        return "_widget_var_" + name
+        return f"_widget_var_{name}"
 
     def __on_is_visible_get(self, value):
         return (self._parent.is_visible_var and value) if self._parent else value
